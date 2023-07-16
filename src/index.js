@@ -76,8 +76,6 @@ async function heandleLoadMore(entries, observer) {
   entries.forEach(async entry => {
     if (entry.isIntersecting) {
       try {
-        
-
         const { hits, total } = await pixabayApiService.fetchArticles();
         if (
           refs.murkupGalleryContainer.getElementsByTagName('li').length ===
@@ -86,7 +84,7 @@ async function heandleLoadMore(entries, observer) {
           observer.unobserve(refs.target);
           Notiflix.Notify.info(
             "We're sorry, but you've reached the end of search results."
-          )
+          );
           return hideLoader(refs);
         }
         showLoader(refs);
@@ -99,7 +97,7 @@ async function heandleLoadMore(entries, observer) {
         hideLoader(refs);
       } catch (err) {
         Notiflix.Notify.failure(`Oops, ${err}. Please try again.`);
-      } 
+      }
     }
   });
 }
