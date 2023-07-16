@@ -1,8 +1,6 @@
 import axios from 'axios';
-import Notiflix from 'notiflix';
 
 const BASE_URL = 'https://pixabay.com/api/';
-axios.defaults.baseURL = 'https://pixabay.com/api/';
 const API_KEY = '38126505-a6f53156a171e6bf3f658f7c1';
 
 export default class PixabayApiService {
@@ -10,10 +8,9 @@ export default class PixabayApiService {
   page = 1;
 
   async fetchArticles() {
-    const urlAxiosKey = `?key=${API_KEY}`;
-
-    const { data } = await axios.get(urlAxiosKey, {
+    const { data } = await axios.get(BASE_URL, {
       params: {
+        key: `${API_KEY}`,
         page: this.page,
         q: this.searchQuery,
         per_page: 40,

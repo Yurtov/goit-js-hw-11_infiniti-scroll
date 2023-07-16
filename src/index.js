@@ -76,7 +76,7 @@ async function heandleLoadMore(entries, observer) {
   entries.forEach(async entry => {
     if (entry.isIntersecting) {
       try {
-        showLoader(refs);
+        
 
         const { hits, total } = await pixabayApiService.fetchArticles();
         if (
@@ -84,22 +84,22 @@ async function heandleLoadMore(entries, observer) {
           total
         ) {
           observer.unobserve(refs.target);
-          hideLoader(refs);
           Notiflix.Notify.info(
             "We're sorry, but you've reached the end of search results."
-          );
+          )
+          return hideLoader(refs);
         }
+        showLoader(refs);
         refs.murkupGalleryContainer.insertAdjacentHTML(
           'beforeend',
           murkupGallery(hits)
         );
-       
+
         pixabayApiService.incrementPage();
-      } catch(err) {
-        Notiflix.Notify.failure(`Oops, ${err}. Please try again.`);
-      } finally{
         hideLoader(refs);
-      }
+      } catch (err) {
+        Notiflix.Notify.failure(`Oops, ${err}. Please try again.`);
+      } 
     }
   });
 }
