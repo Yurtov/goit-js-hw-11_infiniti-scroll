@@ -95,7 +95,7 @@ async function heandleLoadMore(entries, observer) {
           );
         }
         pixabayApiService.incrementPage();
-      } catch {
+      } catch(err) {
         Notiflix.Notify.failure(`Oops, ${err}. Please try again.`);
       } finally{
         hideLoader(refs);
