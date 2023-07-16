@@ -79,21 +79,21 @@ async function heandleLoadMore(entries, observer) {
         showLoader(refs);
 
         const { hits, total } = await pixabayApiService.fetchArticles();
-
-        refs.murkupGalleryContainer.insertAdjacentHTML(
-          'beforeend',
-          murkupGallery(hits)
-        );
         if (
           refs.murkupGalleryContainer.getElementsByTagName('li').length ===
           total
         ) {
-          observer.unobserve(target);
+          observer.unobserve(refs.target);
           hideLoader(refs);
           Notiflix.Notify.info(
             "We're sorry, but you've reached the end of search results."
           );
         }
+        refs.murkupGalleryContainer.insertAdjacentHTML(
+          'beforeend',
+          murkupGallery(hits)
+        );
+       
         pixabayApiService.incrementPage();
       } catch(err) {
         Notiflix.Notify.failure(`Oops, ${err}. Please try again.`);
